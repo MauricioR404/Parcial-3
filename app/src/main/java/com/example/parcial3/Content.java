@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Content extends AppCompatActivity {
 
@@ -21,23 +22,30 @@ public class Content extends AppCompatActivity {
             EditText edit1 = (EditText) findViewById(R.id.num1);
             EditText edit2 = (EditText) findViewById(R.id.num2);
 
+
             @Override
             public void onClick(View v) {
                 int num1 = Integer.valueOf(edit1.getText().toString());
                 int num2 = Integer.valueOf(edit2.getText().toString());
 
                 Bundle informacion = new Bundle();
-                informacion.putInt("num1", num1);
-                informacion.putInt("num2", num2);
+
                 Intent i = new Intent(Content.this, Procesar.class);
-                i.putExtras(informacion);
+                i.putExtra("numero1", num1);
+                i.putExtra("numero2", num2);
+
+
                 startActivity(i);
-                /*
-                int resultado = num1 + num2;
-
-
-                */
             }
         });
+
+        Bundle parametros = this.getIntent().getExtras();
+        TextView resultado = (TextView) findViewById(R.id.resultado);
+
+        if(parametros !=null) {
+            int res = getIntent().getExtras().getInt("resultado");
+            resultado.setText("Resultado : " + res);
+
+        }
     }
 }
